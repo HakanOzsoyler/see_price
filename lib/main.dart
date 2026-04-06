@@ -1,13 +1,20 @@
+import 'dart:convert';
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'config_page.dart';
 
+const String _apiEndpoint = 'https://kernel.dinamikotomasyon.com/api/v1/mssql';
+const String _apiKey = 'cMTEuMDMuMjAyNi1PWkFOKkNBTipLw5ZTRU1FWi0xNi4wMy4yMDI2';
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -31,16 +38,19 @@ class BarcodeScannerScreen extends StatefulWidget {
 }
 
 class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
+  static const String _logoImagePreferenceKey = 'logoImageBase64';
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   String? barcodeee;
   String? urunIsim;
   double? urunFiyat;
   String? urunDoviz;
+  Uint8List? _logoImageBytes;
   static const MethodChannel _methodChannel = MethodChannel('com.example.barcode_scanner');
   bool _isScanned = false;
   Timer? _timer;
   String _outputMode = 'android';
+  bool _kioskMode = false;
 
   // Gizli ayarlar erişimi için
   bool _longPressCompleted = false;
@@ -50,7 +60,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   @override
   void initState() {
     super.initState();
-    _loadOutputMode();
+    _loadSettings();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _focusNode.requestFocus();
     });
@@ -59,7 +69,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   void _openConfigPage() async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => ConfigPage(onSaved: () => setState(() {})),
+        builder: (_) => ConfigPage(onSaved: _loadSettings),
       ),
     );
   }
@@ -90,13 +100,48 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
     }
   }
 
-  Future<void> _loadOutputMode() async {
+  Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
+    final logoImageBase64 = prefs.getString(_logoImagePreferenceKey);
+    Uint8List? logoImageBytes;
+
+    if (logoImageBase64 != null && logoImageBase64.isNotEmpty) {
+      try {
+        logoImageBytes = base64Decode(logoImageBase64);
+      } catch (_) {
+        logoImageBytes = null;
+      }
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    final outputMode = prefs.getString('outputMode') ?? 'android';
+    final kioskMode = prefs.getBool('kioskMode') ?? false;
+
     setState(() {
-      _outputMode = prefs.getString('outputMode') ?? 'windows';
+      _outputMode = outputMode;
+      _kioskMode = kioskMode;
+      _logoImageBytes = logoImageBytes;
     });
+
+    await _applySystemMode();
+
     if (_outputMode == 'android') {
       _methodChannel.setMethodCallHandler(_handleMethodCall);
+    } else {
+      _methodChannel.setMethodCallHandler(null);
+    }
+  }
+
+  Future<void> _applySystemMode() async {
+    if (_kioskMode) {
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+      await WakelockPlus.enable();
+    } else {
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      await WakelockPlus.disable();
     }
   }
 
@@ -108,7 +153,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
         if (mounted) {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => ConfigPage(onSaved: () => setState(() {})),
+              builder: (_) => ConfigPage(onSaved: _loadSettings),
             ),
           );
         }
@@ -163,8 +208,12 @@ AND BARKOD_TANIMLARI.bar_kodu = '$barcode';
 """;
     try {
       var a = await Dio().post(
-        'https://kernel.connectorabi.com/api/v1/mssql',
-        options: Options(headers: {'clientId': clientId, 'clientPass': clientPass}),
+        _apiEndpoint,
+        options: Options(headers: {
+          'clientId': clientId,
+          'clientPass': clientPass,
+          'X-API-KEY': _apiKey,
+        }),
         data: {
           "config": {
             "user": user,
@@ -277,7 +326,7 @@ AND BARKOD_TANIMLARI.bar_kodu = '$barcode';
                       child: GestureDetector(
                         onTap: _handleLogoTap,
                         onLongPress: _handleLogoLongPress,
-                        child: Image.asset('assets/ic_big_logo.jpeg', fit: BoxFit.cover),
+                        child: _buildLogoImage(fit: BoxFit.cover),
                       ),
                     ),
                     SizedBox(
@@ -397,7 +446,7 @@ AND BARKOD_TANIMLARI.bar_kodu = '$barcode';
                       child: GestureDetector(
                         onTap: _handleLogoTap,
                         onLongPress: _handleLogoLongPress,
-                        child: Image.asset('assets/ic_big_logo.jpeg', fit: BoxFit.contain),
+                        child: _buildLogoImage(fit: BoxFit.contain),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -424,7 +473,7 @@ AND BARKOD_TANIMLARI.bar_kodu = '$barcode';
                       child: GestureDetector(
                         onTap: _handleLogoTap,
                         onLongPress: _handleLogoLongPress,
-                        child: Image.asset('assets/ic_big_logo.jpeg', fit: BoxFit.cover),
+                        child: _buildLogoImage(fit: BoxFit.cover),
                       ),
                     ),
                     // TextField
@@ -551,5 +600,19 @@ AND BARKOD_TANIMLARI.bar_kodu = '$barcode';
             : const SizedBox(),
       ],
     );
+  }
+
+  Widget _buildLogoImage({required BoxFit fit}) {
+    final logoBytes = _logoImageBytes;
+
+    if (logoBytes != null) {
+      return Image.memory(
+        logoBytes,
+        fit: fit,
+        gaplessPlayback: true,
+      );
+    }
+
+    return Image.asset('assets/ic_big_logo.png', fit: fit);
   }
 }

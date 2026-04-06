@@ -43,6 +43,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Ana ekrandaki logo için kamera ile fotoğraf çekmek gerekiyor.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Ana ekrandaki logo için galeriden fotoğraf seçmek gerekiyor.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 </dict>
