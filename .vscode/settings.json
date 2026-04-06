@@ -1,118 +1,119 @@
 {
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "GitHub Dark",
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.expand": false,
-    "explorer.fileNesting.patterns": {
-        "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, .packages, pubspec.lock, build.yaml, analysis_options.yaml, all_lint_rules.yaml",
-        ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
-        "readme.*": "authors, backers.md, changelog*, citation*, code_of_conduct.md, codeowners, contributing.md, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors.md",
-        "*.dart": "$(capture).g.dart, $(capture).freezed.dart,$(capture).gr.dart"
-    },
-    "[dart]": {
-        "editor.codeActionsOnSave": {
-            "source.fixAll": "always"
-        },
-        "editor.formatOnSave": true,
-        "editor.formatOnType": true,
-        "editor.rulers": [
-            80
-        ],
-        "editor.selectionHighlight": false,
-        "editor.suggest.snippetsPreventQuickSuggestions": false,
-        "editor.suggestSelection": "first",
-        "editor.tabCompletion": "onlySnippets",
-        "editor.wordBasedSuggestions": "allDocuments"
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "GitHub Dark",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, .packages, pubspec.lock, build.yaml, analysis_options.yaml, all_lint_rules.yaml",
+    ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
+    "readme.*": "authors, backers.md, changelog*, citation*, code_of_conduct.md, codeowners, contributing.md, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors.md",
+    "*.dart": "$(capture).g.dart, $(capture).freezed.dart,$(capture).gr.dart"
+  },
+  "[dart]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always"
     },
     "editor.formatOnSave": true,
-    "todo-tree.general.showActivityBarBadge": true,
-    "todo-tree.general.tags": [
-        "NOTE",
-        "TODO",
-        "FIXME",
-        "MARK",
-        "[ ]",
-        "[x]"
+    "editor.formatOnType": true,
+    "editor.rulers": [
+      80
     ],
-    "todo-tree.highlights.defaultHighlight": {
-        "type": "tag",
-        "fontWeight": "bold",
-        "foreground": "#000000",
-        "opacity": 90
-    },
-    "todo-tree.highlights.customHighlight": {
-        "NOTE": {
-            "background": "#FFA500",
-            "iconColour": "#FFA500",
-            "icon": "file"
-        },
-        "TODO": {
-            "background": "#FFD703",
-            "iconColour": "#FFD703",
-            "icon": "tasklist"
-        },
-        "FIXME": {
-            "background": "#FF01FF",
-            "iconColour": "#FF01FF",
-            "icon": "bug"
-        },
-        "MARK": {
-            "background": "#157EFB",
-            "iconColour": "#157EFB",
-            "icon": "tag"
-        },
-        "[ ]": {
-            "background": "#ff000080",
-            "iconColour": "#ff000080",
-            "icon": "square"
-        },
-        "[x]": {
-            "background": "#00ff0080",
-            "iconColour": "#00ff0080",
-            "icon": "square-fill"
-        },
-        "DISABLE": {
-            "background": "#3e433e80",
-            "iconColour": "#3e433e80",
-            "icon": "square-fill"
-        }
-    },
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "enabled",
-    "editor.fontSize": 14,
-    "editor.fontFamily": "JetBrains Mono",
-    "editor.fontLigatures": true,
-    "dart.debugExternalLibraries": true,
-    "dart.debugSdkLibraries": false,
-    "dart.lineLength": 120,
-    "[javascript]": {
-        "editor.defaultFormatter": "vscode.github"
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": "allDocuments"
+  },
+  "editor.formatOnSave": true,
+  "todo-tree.general.showActivityBarBadge": true,
+  "todo-tree.general.tags": [
+    "NOTE",
+    "TODO",
+    "FIXME",
+    "MARK",
+    "[ ]",
+    "[x]"
+  ],
+  "todo-tree.highlights.defaultHighlight": {
+    "type": "tag",
+    "fontWeight": "bold",
+    "foreground": "#000000",
+    "opacity": 90
+  },
+  "todo-tree.highlights.customHighlight": {
+    "NOTE": {
+      "background": "#FFA500",
+      "iconColour": "#FFA500",
+      "icon": "file"
     },
-    "files.associations": {
-        "*.json ": "jsonc"
+    "TODO": {
+      "background": "#FFD703",
+      "iconColour": "#FFD703",
+      "icon": "tasklist"
     },
-    "dartImport.fixOnSave": true,
-    "ruby.format": "prettier",
-    "dart.debugExternalPackageLibraries": true,
-    "explorer.confirmDragAndDrop": false,
-    "enableTelemetry": false,
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
+    "FIXME": {
+      "background": "#FF01FF",
+      "iconColour": "#FF01FF",
+      "icon": "bug"
     },
-    "redhat.telemetry.enabled": true,
-    "workbench.colorCustomizations": {
-        "tab.activeBorderTop": "#FFE81F"
+    "MARK": {
+      "background": "#157EFB",
+      "iconColour": "#157EFB",
+      "icon": "tag"
     },
-    "ShortcutMenuBar.indentLines": true,
-    "ShortcutMenuBar.userButton01Command": "",
-    "ShortcutMenuBar.startDebugging": true,
-    "ShortcutMenuBar.redo": true,
-    "bracketPairColorizer.depreciation-notice": false,
-    "window.zoomLevel": -1,
-    "docwriter.hotkey.mac": "⌥ + .",
-    "cSpell.ignoreRegExpList": [
-        "\"[^\"]*\"", // çift tırnak içindeki stringleri yoksay
-        "'[^']*'", // tek tırnak içindeki stringleri yoksay
-        "`[^`]*`" // backtick içinde yazılanları yoksay (JS/TS için)
-    ],
+    "[ ]": {
+      "background": "#ff000080",
+      "iconColour": "#ff000080",
+      "icon": "square"
+    },
+    "[x]": {
+      "background": "#00ff0080",
+      "iconColour": "#00ff0080",
+      "icon": "square-fill"
+    },
+    "DISABLE": {
+      "background": "#3e433e80",
+      "iconColour": "#3e433e80",
+      "icon": "square-fill"
+    }
+  },
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "enabled",
+  "editor.fontSize": 14,
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
+  "dart.debugExternalLibraries": true,
+  "dart.debugSdkLibraries": false,
+  "dart.lineLength": 120,
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.github"
+  },
+  "files.associations": {
+    "*.json ": "jsonc"
+  },
+  "dartImport.fixOnSave": true,
+  "ruby.format": "prettier",
+  "dart.debugExternalPackageLibraries": true,
+  "explorer.confirmDragAndDrop": false,
+  "enableTelemetry": false,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "redhat.telemetry.enabled": true,
+  "workbench.colorCustomizations": {
+    "tab.activeBorderTop": "#FFE81F"
+  },
+  "ShortcutMenuBar.indentLines": true,
+  "ShortcutMenuBar.userButton01Command": "",
+  "ShortcutMenuBar.startDebugging": true,
+  "ShortcutMenuBar.redo": true,
+  "bracketPairColorizer.depreciation-notice": false,
+  "window.zoomLevel": 1,
+  "docwriter.hotkey.mac": "⌥ + .",
+  "cSpell.ignoreRegExpList": [
+    "\"[^\"]*\"",
+    "'[^']*'",
+    "`[^`]*`"
+  ],
+  "dart.flutterSdkPath": ".fvm/versions/3.32.0"
 }

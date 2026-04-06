@@ -17,13 +17,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: BarcodeScannerScreen(),
     );
   }
 }
 
 class BarcodeScannerScreen extends StatefulWidget {
-  const BarcodeScannerScreen({Key? key}) : super(key: key);
+  const BarcodeScannerScreen({super.key});
 
   @override
   _BarcodeScannerScreenState createState() => _BarcodeScannerScreenState();
@@ -276,7 +277,7 @@ AND BARKOD_TANIMLARI.bar_kodu = '$barcode';
                       child: GestureDetector(
                         onTap: _handleLogoTap,
                         onLongPress: _handleLogoLongPress,
-                        child: Image.asset('assets/ic_big_logo.png', fit: BoxFit.cover),
+                        child: Image.asset('assets/ic_big_logo.jpeg', fit: BoxFit.cover),
                       ),
                     ),
                     SizedBox(
@@ -396,7 +397,7 @@ AND BARKOD_TANIMLARI.bar_kodu = '$barcode';
                       child: GestureDetector(
                         onTap: _handleLogoTap,
                         onLongPress: _handleLogoLongPress,
-                        child: Image.asset('assets/ic_big_logo.png', fit: BoxFit.contain),
+                        child: Image.asset('assets/ic_big_logo.jpeg', fit: BoxFit.contain),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -423,7 +424,7 @@ AND BARKOD_TANIMLARI.bar_kodu = '$barcode';
                       child: GestureDetector(
                         onTap: _handleLogoTap,
                         onLongPress: _handleLogoLongPress,
-                        child: Image.asset('assets/ic_big_logo.png', fit: BoxFit.cover),
+                        child: Image.asset('assets/ic_big_logo.jpeg', fit: BoxFit.cover),
                       ),
                     ),
                     // TextField
